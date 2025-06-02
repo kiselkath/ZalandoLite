@@ -7,6 +7,8 @@ public class Customer {
     private String name;
     private String email;
     private List<String> favoriteCategories;
+
+    @VIP
     private boolean isVip;
 
     public Customer(int id, String name, String email, List<String> favoriteCategories, boolean isVip) {
@@ -54,7 +56,4 @@ public class Customer {
                 ", favoriteCategories = " + favoriteCategories +
                 ", isVip = " + isVip;
     }
-
-    @VIP
-    private boolean isVip;
 }
