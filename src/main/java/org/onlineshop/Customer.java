@@ -54,4 +54,7 @@ public class Customer {
                 ", favoriteCategories = " + favoriteCategories +
                 ", isVip = " + isVip;
     }
+
+    @VIP
+    private boolean isVip;
 }
