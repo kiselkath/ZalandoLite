@@ -22,7 +22,7 @@ public class Main {
         customerManager.registerCustomer(customer);
 
         // 3. Оформляем заказ
-        OrderManager orderManager = new OrderManager(inventory);
+        OrderManager orderManager = new OrderManager(inventory, customerManager);
 
         OrderItem item1 = new OrderItem(jeans, 2);
         OrderItem item2 = new OrderItem(hoodie, 1);

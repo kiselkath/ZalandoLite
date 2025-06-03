@@ -21,9 +21,12 @@ public class OrderManager {
     private InventoryManager inventoryManager;
     private Map<Integer, List<Order>> ordersByCustomer = new HashMap<>();
     private int orderCounter = 1;
+    private CustomerManager customerManager;
 
-    public OrderManager(InventoryManager inventoryManager) {
+
+    public OrderManager(InventoryManager inventoryManager, CustomerManager customerManager) {
         this.inventoryManager = inventoryManager;
+        this.customerManager = customerManager;
     }
 
     public Order createOrder(int customerId, List<OrderItem> items) {
@@ -48,10 +51,27 @@ public class OrderManager {
             order.addItem(item);
         }
 
+        // Добавляем скидку для випов
+        Customer customer = customerManager.getCustomerById(customerId);
+        boolean isVip = customer != null && customer.isVip();
+
+        double total = 0.0;
+        for (OrderItem item : items) {
+            total += item.getProduct().getPrice() * item.getQuantity();
+        }
+
+        if (isVip) {
+            total *= 0.9; // Скидка 10%
+            System.out.println("✨ VIP discount applied! 10% off ✨");
+        }
+
+        System.out.printf("\uD83D\uDC9A Total price for order #%d is %.2f%n", order.getOrderId(), total);
+
+
         // Сохраняем заказ
         ordersByCustomer.computeIfAbsent(customerId, k -> new ArrayList<>()).add(order);
 
-        System.out.println("Order completed: " + order);
+        //System.out.println("Order completed: " + order);
         return order;
     }
 
